@@ -3,14 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
-// presets: [['@babel/preset-env', {
-// 	targets: {
-//      chrome: "67",
-//    },
-// 	useBuiltIns: 'usage'
-// }]]
-
-
 module.exports = {
 	mode: 'development',
 	devtool: 'cheap-module-eval-source-map',
@@ -28,15 +20,7 @@ module.exports = {
 		rules: [{ 
 			test: /\.js$/, 
 			exclude: /node_modules/, 
-      loader: 'babel-loader',
-      // options: {
-      //   presets: [['@babel/preset-env', {
-      //     targets: {
-      //       chrome: "67",
-      //     },
-      //     useBuildIns: 'usage' // 只有用到的es模块才会打包进去
-      //   }]]
-      // }
+			loader: 'babel-loader',
 		}, {
 			test: /\.(jpg|png|gif)$/,
 			use: {
@@ -81,6 +65,9 @@ module.exports = {
 		new CleanWebpackPlugin(['dist']),
 		new webpack.HotModuleReplacementPlugin()
 	],
+	optimization: {
+		usedExports: true
+	},
 	output: {
 		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist')
